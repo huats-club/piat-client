@@ -24,11 +24,13 @@ if __name__ == "__main__":
     print(f"Generating with prompt: {prompt}")
     client.generate(prompt)
 
-    last = time.now()
+    last = time.time()
     print("Running", end="")
     while not client.is_ready():
-        if time.now() - last > 30:
+        difference = (time.time() - last).total_seconds()
+        if difference > 30:
             print(".", end="")
+            last = time.time()
         pass
     print("Done")
 
