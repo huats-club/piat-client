@@ -73,7 +73,7 @@ def setup():
     # Load config file from current working directory
     cwd = os.getcwd()
     print(f"Current working directory: {cwd}")
-    config_path = cwd + "/ai-config/config_students.yml"
+    config_path = cwd + "/ai-config/config.yml"
     print(f"Config path: {config_path}")
     with open(config_path) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
