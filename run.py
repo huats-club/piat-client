@@ -23,7 +23,9 @@ if __name__ == "__main__":
     # Create client instance
     client = Client(config['serverUri'], config['serverPort'])
     spacy.load('en')
-    pf = ProfanityFilter(languages = ['en'])
+    spacy.load('xx')
+    pf = ProfanityFilter(languages = ['en', 'xx'])
+    pf.extra_profane_word_dictionaries = {'en': {'naked', 'nude'}}
     prompt = pf.censor(args.prompt)
     print(f"Generating with prompt: {prompt}")
     client.generate(prompt)
