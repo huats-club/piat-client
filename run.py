@@ -25,11 +25,12 @@ if __name__ == "__main__":
     client.generate(prompt)
 
     last = time.time()
-    print("Running", end="")
+    print("Running", flush= True, end="")
     while not client.is_ready():
         difference = (time.time() - last)
+        print(difference)
         if difference > 0.5:
-            print(".", end="")
+            print(".", flush= True, end="")
             last = time.time()
 
     if client.is_success():
