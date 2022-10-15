@@ -3,7 +3,6 @@ import threading
 
 import requests
 import yaml
-from PIL import Image, ImageOps
 
 
 # Client class to obtain image via HTTP request
@@ -77,23 +76,3 @@ def setup():
         os.mkdir("datas/received")
 
     return config
-
-
-
-if __name__ == "__main__":
-
-    # Setup the config
-    config = setup()
-
-    # Create client instance
-    client = Client(config['serverUri'], config['serverPort'])
-    prompt = "Lego toy house"
-    print(f"Generating with prompt: {prompt}")
-    client.generate(prompt)
-
-    while not client.is_ready():
-        pass
-
-    # Display image in memory
-    myImage = Image.open('img.png')
-    myImage.show()
