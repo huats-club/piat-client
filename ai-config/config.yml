@@ -1,0 +1,3 @@
+serverUri: pixeltint.mavenproject.sg
+serverPort: 5974
+action: display # or save
