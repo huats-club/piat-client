@@ -34,6 +34,7 @@ class Client:
     def _generate(self, sentence):
 
         if self.id == None:
+            self.has_end = True
             return
 
         self.has_end = False
