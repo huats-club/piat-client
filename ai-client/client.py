@@ -1,10 +1,9 @@
 import os
 import threading
 
-import cv2
-import numpy as np
 import requests
 import yaml
+from PIL import Image, ImageOps
 
 
 # Client class to obtain image via HTTP request
@@ -13,7 +12,6 @@ class Client:
         self.serverUri = serverUri
         self.serverPort = serverPort
         self.has_end = False
-        self.image = None
         self.image_path = ""
 
     def generate(self, sentence):
@@ -27,9 +25,6 @@ class Client:
             return True
         else:
             return False
-
-    def get_image(self):
-        return self.image
 
     def get_image_path(self):
         return self.image_path
@@ -61,10 +56,6 @@ class Client:
         with open(self.image_path, "wb") as f:
             f.write(r.content)
 
-        # Store image in memory
-        np_buffer = np.frombuffer(r.content, np.uint8)
-        self.image = cv2.imdecode(np_buffer,cv2.IMREAD_UNCHANGED)
-
         self.has_end = True
 
 
@@ -76,12 +67,13 @@ def setup():
     config_path = cwd + "/ai-config/config.yml"
     print(f"Config path: {config_path}")
     with open(config_path) as f:
-        config = yaml.load(f, Loader=yaml.FullLoader)
+        config = yaml.load(f, Loader=yaml.SafeLoader)
 
     # Create folder to save received image
     output_dir = os.getcwd() + "/datas/received"
     print(f"Output dir path: {output_dir}")
     if not os.path.exists("datas/received"):
+        os.mkdir("datas")
         os.mkdir("datas/received")
 
     return config
@@ -103,6 +95,5 @@ if __name__ == "__main__":
         pass
 
     # Display image in memory
-    cv2.imshow("image", client.get_image())
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    myImage = Image.open('img.png')
+    myImage.show()
