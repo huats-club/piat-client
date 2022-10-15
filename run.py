@@ -19,10 +19,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Create client instance
-    client = Client(config['serverUri'], config['serverPort'])
+    client = Client(config['serverUri'], config['serverPort'], config["id"])
     prompt = args.prompt
     print(f"Generating with prompt: {prompt}")
-    client.generate(prompt, config["id"])
+    client.generate(prompt)
 
     last = time.time()
     print("Running", flush= True, end="")
