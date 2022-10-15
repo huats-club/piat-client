@@ -22,7 +22,7 @@ if __name__ == "__main__":
     client = Client(config['serverUri'], config['serverPort'])
     prompt = args.prompt
     print(f"Generating with prompt: {prompt}")
-    client.generate(prompt)
+    client.generate(prompt, config["id"])
 
     last = time.time()
     print("Running", flush= True, end="")
