@@ -68,11 +68,4 @@ def setup():
     with open(config_path) as f:
         config = yaml.load(f, Loader=yaml.SafeLoader)
 
-    # Create folder to save received image
-    output_dir = os.getcwd() + "/datas/received"
-    print(f"Output dir path: {output_dir}")
-    if not os.path.exists("datas/received"):
-        os.mkdir("datas")
-        os.mkdir("datas/received")
-
     return config
