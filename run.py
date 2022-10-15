@@ -1,4 +1,5 @@
 import argparse
+import time
 
 from PIL import Image
 
@@ -22,6 +23,14 @@ if __name__ == "__main__":
     prompt = args.prompt
     print(f"Generating with prompt: {prompt}")
     client.generate(prompt)
+
+    last = time.time()
+    print("Running", end="")
+    while not client.is_ready():
+        difference = (time.time() - last)
+        if difference > 30:
+            print(".", end="")
+            last = time.time()
 
     if client.is_success():
         # Display image in memory
