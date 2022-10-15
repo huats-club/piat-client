@@ -1,9 +1,7 @@
 import argparse
 import time
 
-import spacy
 from PIL import Image
-from profanity_filter import ProfanityFilter
 
 from client.client import Client, setup
 
@@ -22,11 +20,7 @@ if __name__ == "__main__":
 
     # Create client instance
     client = Client(config['serverUri'], config['serverPort'])
-    spacy.load('en')
-    spacy.load('xx')
-    pf = ProfanityFilter(languages = ['en', 'xx'])
-    pf.extra_profane_word_dictionaries = {'en': {'naked', 'nude'}}
-    prompt = pf.censor(args.prompt)
+    prompt = args.prompt
     print(f"Generating with prompt: {prompt}")
     client.generate(prompt)
 
