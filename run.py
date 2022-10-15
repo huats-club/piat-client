@@ -28,7 +28,6 @@ if __name__ == "__main__":
     print("Running", flush= True, end="")
     while not client.is_ready():
         difference = (time.time() - last)
-        print(difference)
         if difference > 0.5:
             print(".", flush= True, end="")
             last = time.time()
