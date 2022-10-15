@@ -41,7 +41,7 @@ class Client:
 
         # Generate query string
         tokens = sentence.split(' ')
-        query = f"token0={self.id}"
+        query = f"token0={self.id}&"
         for count in range(1, len(tokens)+1):
             idx = count - 1
             query += f"token{count}={tokens[idx]}"
