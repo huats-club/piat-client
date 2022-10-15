@@ -31,6 +31,7 @@ if __name__ == "__main__":
         if difference > 1:
             print(".", flush= True, end="")
             last = time.time()
+    print("")
 
     if client.is_success():
         # Display image in memory
