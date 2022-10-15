@@ -28,7 +28,7 @@ if __name__ == "__main__":
     print("Running", end="")
     while not client.is_ready():
         difference = (time.time() - last)
-        if difference.seconds > 30:
+        if difference > 0.5:
             print(".", end="")
             last = time.time()
 
