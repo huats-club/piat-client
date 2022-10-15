@@ -12,6 +12,7 @@ class Client:
         self.serverPort = serverPort
         self.has_end = False
         self.image_path = ""
+        self.success_flag = False
 
     def generate(self, sentence):
         self.thread = threading.Thread(target = self._generate, args=(sentence,))
@@ -47,6 +48,7 @@ class Client:
         url =  f"http://{self.serverUri}:{self.serverPort}/gen?{query}"
 
         r = requests.get(url, stream=True)
+        self.success_flag = r.status_code == 200
 
         # Save image to file
         path = "img.png"
@@ -56,6 +58,9 @@ class Client:
             f.write(r.content)
 
         self.has_end = True
+
+    def is_success(self):
+        return self.success_flag
 
 
 def setup():
