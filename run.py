@@ -65,7 +65,7 @@ if __name__ == "__main__":
                     print("COMPLETED!")
 
                     # Generate url
-                    url =  f"http://{config['serverIP']}:{config['serverPort']}/result/{uuid}"
+                    url =  f"http://{config['serverUri']}:{config['serverPort']}/result/{uuid}"
                     r = requests.get(url, stream=True)
 
                     # Save image to file
