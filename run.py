@@ -23,7 +23,9 @@ if __name__ == "__main__":
     client = Client(config['serverUri'], config['serverPort'], config["id"])
     prompt = args.prompt
     print(f"Generating with prompt: {prompt}")
-    is_success, uuid = client.generate(prompt)
+    uuid = client.generate(prompt)
+
+    is_success = (uuid != "")
 
     if not is_success:
         print("Failed, exiting...")

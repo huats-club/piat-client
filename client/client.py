@@ -13,7 +13,7 @@ class Client:
         self.id = id
 
     def generate(self, sentence):
-        self._generate(sentence)
+        return self._generate(sentence)
 
     # Internal method call to ensure asynchronous running
     def _generate(self, sentence):
@@ -36,10 +36,10 @@ class Client:
         if r.status_code == 200:
             return_json = r.json()
             uuid = return_json["result-id"]
-            return True, uuid
+            return uuid
 
         else:
-            return False, ""
+            return ""
 
 
 def setup():
