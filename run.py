@@ -60,6 +60,8 @@ if __name__ == "__main__":
                     last_run = time.time()
 
                 else:
+                    print("COMPLETED!")
+
                     # Generate url
                     url =  f"http://{config['serverIP']}:{config['serverPort']}/result/{uuid}"
                     r = requests.get(url, stream=True)
@@ -71,6 +73,7 @@ if __name__ == "__main__":
 
                     break
 
+        print("Displaying image!")
         myImage = Image.open('img.png')
         myImage.show()
 
