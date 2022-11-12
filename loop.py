@@ -21,12 +21,14 @@ if __name__ == "__main__":
     try:
 
         last_run = time.time()
+        first_run = True
 
         while True:
 
 
-            if time.time() - last_run > 15 * 60: # Every 15 mins
+            if first_run or time.time() - last_run > 15 * 60: # Every 15 mins
 
+                first_run = False
                 print("TIMEOUT: RUNNING SD")
 
                 # Create client instance
