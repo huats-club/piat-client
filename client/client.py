@@ -13,17 +13,10 @@ class Client:
         self.id = id
 
     def generate(self, sentence):
-        self.thread = threading.Thread(target = self._generate, args=(sentence,))
-        self.thread.start()
+        self._generate(sentence)
 
     # Internal method call to ensure asynchronous running
     def _generate(self, sentence):
-
-        if self.id == None:
-            self.has_end = True
-            return
-
-        self.has_end = False
 
         # Generate query string
         tokens = sentence.split(' ')
