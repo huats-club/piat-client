@@ -1,9 +1,9 @@
 import argparse
 import time
 
-from PIL import Image
-
+import requests
 from client.client import Client, setup
+from PIL import Image
 
 if __name__ == "__main__":
 
@@ -22,21 +22,42 @@ if __name__ == "__main__":
     client = Client(config['serverUri'], config['serverPort'], config["id"])
     prompt = args.prompt
     print(f"Generating with prompt: {prompt}")
-    client.generate(prompt)
+    is_success, uuid = client.generate(prompt)
 
-    last = time.time()
-    print("Running", flush= True, end="")
-    while not client.is_ready():
-        difference = (time.time() - last)
-        if difference > 1:
-            print(".", flush= True, end="")
-            last = time.time()
-    print("")
+    if not is_success:
+        print("Failed, exiting...")
+        exit(-1)
 
-    if client.is_success():
-        # Display image in memory
+    try:
+        last_run = time.time()
+
+        while True:
+
+            if last_run - time.time() > 30: # 30 seconds
+
+                # Query for the status before getting the data
+                r = requests.get(
+                    f"http://{config['checkingServerIP']}:{config['checkingServerPort']}/check/{uuid}")
+                current_state = r.json()["current_state"]
+
+                if current_state != "Completed":
+                    last_run = time.time()
+
+                else:
+                    # Generate url
+                    url =  f"http://{config['serverIP']}:{config['serverPort']}/result/{uuid}"
+                    r = requests.get(url, stream=True)
+
+                    # Save image to file
+                    path = "img.png"
+                    with open(path, "wb") as f:
+                        f.write(r.content)
+
+                    break
+
         myImage = Image.open('img.png')
         myImage.show()
 
-    else:
-        print("Failed")
+    except KeyboardInterrupt:
+        print("Forced exit, exiting...")
+        exit(-1)

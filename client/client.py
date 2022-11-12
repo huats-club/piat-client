@@ -10,25 +10,11 @@ class Client:
     def __init__(self, serverUri, serverPort, id=None) -> None:
         self.serverUri = serverUri
         self.serverPort = serverPort
-        self.has_end = False
-        self.image_path = ""
-        self.success_flag = False
         self.id = id
 
     def generate(self, sentence):
         self.thread = threading.Thread(target = self._generate, args=(sentence,))
         self.thread.start()
-
-    def is_ready(self):
-        if self.has_end == True:
-            self.thread.join()
-            self.has_end = False
-            return True
-        else:
-            return False
-
-    def get_image_path(self):
-        return self.image_path
 
     # Internal method call to ensure asynchronous running
     def _generate(self, sentence):
@@ -52,20 +38,15 @@ class Client:
         # Generate url
         url =  f"http://{self.serverUri}:{self.serverPort}/gen?{query}"
 
-        r = requests.get(url, stream=True)
-        self.success_flag = r.status_code == 200
+        r = requests.get(url)
 
-        # Save image to file
-        path = "img.png"
-        # self.image_path = "datas/received/" + path
-        self.image_path = path
-        with open(self.image_path, "wb") as f:
-            f.write(r.content)
+        if r.status_code == 200:
+            return_json = r.json()
+            uuid = return_json["result-id"]
+            return True, uuid
 
-        self.has_end = True
-
-    def is_success(self):
-        return self.success_flag
+        else:
+            return False, ""
 
 
 def setup():
