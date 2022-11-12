@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
         while True:
 
-            if first_run or time.time() - last_run > 30: # 30 seconds
+            if first_run or time.time() - last_run > 60: # 60 seconds
 
                 # Query for the status before getting the data
                 r = requests.get(
@@ -49,6 +49,7 @@ if __name__ == "__main__":
                 ret = r.json()
                 count  = ret["count"]
 
+                print(f"Time now: {time.time()}")
                 print(f"Current state of request {uuid}: {current_state}")
                 print(f"There are currently {count} in queue")
                 queued = ret["queued"]
