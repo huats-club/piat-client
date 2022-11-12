@@ -50,7 +50,7 @@ class Client:
                 query += "&"
 
         # Generate url
-        url =  f"https://{self.serverUri}:{self.serverPort}/gen?{query}"
+        url =  f"http://{self.serverUri}:{self.serverPort}/gen?{query}"
 
         r = requests.get(url, stream=True)
         self.success_flag = r.status_code == 200
