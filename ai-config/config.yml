@@ -1,3 +1,5 @@
 serverUri: pixeltint.mavenproject.sg
 serverPort: 5974
 action: display # or save
+checkingServerIP: pixeltint.mavenproject.sg
+checkingServerPort: 5975
