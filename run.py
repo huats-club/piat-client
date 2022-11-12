@@ -33,10 +33,11 @@ if __name__ == "__main__":
 
     try:
         last_run = time.time()
+        first_run = True
 
         while True:
 
-            if last_run - time.time() > 30: # 30 seconds
+            if first_run or time.time() - last_run > 30: # 30 seconds
 
                 # Query for the status before getting the data
                 r = requests.get(
