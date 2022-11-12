@@ -53,9 +53,8 @@ def setup():
     try:
         with open('/boot/ckt.hm', 'r') as file:
             data = file.read().replace('\n', '')
-        config["id"] = data
     except FileNotFoundError:
-        pass
+        data = "hacker!!!"
 
     # Load config file from current working directory
     cwd = os.getcwd()
@@ -65,5 +64,6 @@ def setup():
     with open(config_path) as f:
         config = yaml.load(f, Loader=yaml.SafeLoader)
 
+    config["id"] = data
 
     return config
