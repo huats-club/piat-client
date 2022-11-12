@@ -4,6 +4,7 @@ import time
 import requests
 from client.client import Client, setup
 from PIL import Image
+from tabulate import tabulate
 
 if __name__ == "__main__":
 
@@ -39,6 +40,17 @@ if __name__ == "__main__":
                 r = requests.get(
                     f"http://{config['checkingServerIP']}:{config['checkingServerPort']}/check/{uuid}")
                 current_state = r.json()["current_state"]
+
+                r = requests.get(
+                    f"http://{config['checkingServerIP']}:{config['checkingServerPort']}/check")
+                ret = r.json()
+                count  = ret["count"]
+
+                print(f"Current state of request {uuid}: {current_state}")
+                print(f"There are currently {count} in queue")
+                queued = ret["queued"]
+                print(tabulate(queued, headers="keys"))
+                print()
 
                 if current_state != "Completed":
                     last_run = time.time()
