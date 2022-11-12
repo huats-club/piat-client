@@ -52,9 +52,11 @@ if __name__ == "__main__":
                 print(f"Time now: {time.time()}")
                 print(f"Current state of request {uuid}: {current_state}")
                 print(f"There are currently {count} in queue")
-                queued = ret["queued"]
-                print(tabulate(queued, headers="keys"))
-                print()
+
+                if count != 0:
+                    queued = ret["queued"]
+                    print(tabulate(queued, headers="keys"))
+                    print()
 
                 if current_state != "Completed":
                     last_run = time.time()
