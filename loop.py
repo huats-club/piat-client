@@ -47,7 +47,7 @@ if __name__ == "__main__":
                 if client.is_success():
                     # Display image in memory
                     myImage = Image.open('img.png')
-                    myImage.show()
+                    # myImage.show()
 
                 else:
                     print("Failed")
