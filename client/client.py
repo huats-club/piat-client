@@ -42,7 +42,7 @@ class Client:
             return ""
 
 
-def setup():
+def setup(from_path=False, cwd=""):
     try:
         with open('/boot/ckt.hm', 'r') as file:
             data = file.read().replace('\n', '')
@@ -50,8 +50,9 @@ def setup():
         data = "hacker!!!"
 
     # Load config file from current working directory
-    cwd = os.getcwd()
-    print(f"Current working directory: {cwd}")
+    if not from_path:
+        cwd = os.getcwd()
+        print(f"Current working directory: {cwd}")
     config_path = cwd + "/ai-config/config.yml"
     print(f"Config path: {config_path}")
     with open(config_path) as f:
